@@ -15,12 +15,15 @@ class _ItemCardState extends State<ItemCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
+      shadowColor: Colors.grey[600],
+      color: Color(0xFF111111),
       elevation: 10,
       child: Container(
         height: 220,
         width: 150,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(3), color: Color(0xf4000000)),
+          borderRadius: BorderRadius.circular(3),
+        ),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -31,7 +34,9 @@ class _ItemCardState extends State<ItemCard> {
                   width: 120,
                   child: widget.item.imgUrl!.startsWith("http")
                       ? Image.network(widget.item.imgUrl!)
-                      : Image.asset(widget.item.imgUrl!)),
+                      : Image.asset(
+                          widget.item.imgUrl!,
+                        )),
             ],
           ),
           Text(
@@ -40,7 +45,7 @@ class _ItemCardState extends State<ItemCard> {
           ),
           RatingBar.builder(
             itemSize: 12,
-            initialRating: 3,
+            initialRating: widget.item.rating!,
             minRating: 1,
             direction: Axis.horizontal,
             allowHalfRating: true,
@@ -59,7 +64,7 @@ class _ItemCardState extends State<ItemCard> {
             children: [
               Text(
                 "\$${widget.item.itemPrice}",
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
               ),
               IconButton(
                   onPressed: () {

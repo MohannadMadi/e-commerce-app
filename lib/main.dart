@@ -20,10 +20,26 @@ class _MyAppState extends State<MyApp> {
         home: Scaffold(
       backgroundColor: Color((0xFF000000)),
       appBar: AppBar(
-        backgroundColor: Colors.amber[700],
+        backgroundColor: Colors.purple[900],
         title: const Text("shop"),
       ),
-      body: ItemCard(item: item1),
+      body: SingleChildScrollView(
+          child: Column(
+        children: [
+          Wrap(
+              spacing: 6,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              children: [
+                ...items
+                    .map((e) => Padding(
+                          padding: const EdgeInsets.only(top: 6.0),
+                          child: ItemCard(item: e),
+                        ))
+                    .toList()
+              ]),
+          Row()
+        ],
+      )),
     ));
   }
 }
