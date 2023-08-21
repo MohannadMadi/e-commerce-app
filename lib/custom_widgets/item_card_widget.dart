@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'item_card_class.dart';
-import 'item_description.dart';
+import '../model/item_card_class.dart';
+import '../screens/item_description.dart';
 
 class ItemCard extends StatefulWidget {
   final Item item;
@@ -21,14 +21,15 @@ class _ItemCardState extends State<ItemCard> {
             builder: (context) => DescriptionPage(item: widget.item)));
       },
       child: Card(
+        shape: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
         shadowColor: Colors.grey[600],
         color: Color(0xFF111111),
-        elevation: 10,
+        elevation: 3,
         child: Container(
           height: 220,
           width: 150,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(3),
+            borderRadius: BorderRadius.circular(15),
           ),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [

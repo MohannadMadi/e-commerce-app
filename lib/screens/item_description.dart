@@ -2,8 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
-
-import 'item_card_class.dart';
+import '../model/item_card_class.dart';
 
 class DescriptionPage extends StatefulWidget {
   Item item;
