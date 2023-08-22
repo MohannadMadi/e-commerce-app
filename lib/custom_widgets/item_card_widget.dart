@@ -1,3 +1,5 @@
+import 'package:course/custom_widgets/favorite_button.dart';
+import 'package:course/custom_widgets/rating_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../model/item_card_class.dart';
@@ -12,87 +14,99 @@ class ItemCard extends StatefulWidget {
 }
 
 class _ItemCardState extends State<ItemCard> {
-  bool isChecked = false;
+  bool isCartChecked = false;
+
   @override
   Widget build(BuildContext context) {
+    double cardSize = (MediaQuery.of(context).size.width / 2.25) < 200
+        ? (MediaQuery.of(context).size.width / 2.25)
+        : 200;
     return InkWell(
       onTap: () {
+        print(MediaQuery.of(context).size.width);
+
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => DescriptionPage(item: widget.item)));
       },
-      child: Card(
-        shape: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
-        shadowColor: Colors.grey[600],
-        color: Color(0xFF111111),
-        elevation: 3,
-        child: Container(
-          height: 220,
-          width: 150,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-          ),
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+      child: Stack(
+        alignment: Alignment(.8, -.9),
+        children: [
+          Container(
+            width: cardSize,
+            child: Column(
               children: [
-                Container(
-                    padding: const EdgeInsets.only(top: 10),
-                    height: 140,
-                    width: 120,
-                    child: widget.item.imgUrl!.startsWith("http")
-                        ? Image.network(widget.item.imgUrl!)
-                        : Image.asset(
-                            widget.item.imgUrl!,
-                          )),
-              ],
-            ),
-            Text(
-              widget.item.itemName!,
-              style: TextStyle(color: Colors.white),
-            ),
-            RatingBar.builder(
-              itemSize: 12,
-              initialRating: widget.item.rating!,
-              minRating: 1,
-              direction: Axis.horizontal,
-              allowHalfRating: true,
-              itemCount: 5,
-              itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-              itemBuilder: (context, _) => const Icon(
-                Icons.star,
-                color: Colors.amber,
-              ),
-              onRatingUpdate: (rating) {
-                print(rating);
-              },
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "\$${widget.item.itemPrice}",
-                  style: const TextStyle(color: Colors.white),
+                Card(
+                  shape: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15)),
+                  color: Color.fromARGB(255, 26, 24, 24),
+                  child: Container(
+                    height: cardSize,
+                    width: cardSize,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                            height: cardSize - 20,
+                            child: widget.item.imgUrl!.startsWith("http")
+                                ? Image.network(widget.item.imgUrl!)
+                                : Image.asset(
+                                    widget.item.imgUrl!,
+                                  )),
+                      ],
+                    ),
+                  ),
                 ),
-                IconButton(
-                    onPressed: () {
-                      setState(() {
-                        isChecked = !isChecked;
-                      });
-                    },
-                    icon: isChecked
-                        ? const Icon(
-                            Icons.shopping_cart_rounded,
-                            color: Colors.amber,
-                          )
-                        : const Icon(
-                            Icons.shopping_cart_outlined,
+                Row(
+                  children: [
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          widget.item.itemName!,
+                          style: TextStyle(
                             color: Colors.white,
-                          ))
+                            fontSize: 20,
+                          ),
+                        ),
+                        Container(
+                          width: cardSize - 10,
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "\$${widget.item.itemPrice}",
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                ),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  CustomRatingIndicator(item: widget.item)
+                                ],
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
+                )
               ],
-            )
-          ]),
-        ),
+            ),
+          ),
+          FavoriteButton(onChange: ,)
+        ],
       ),
     );
   }

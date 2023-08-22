@@ -17,17 +17,24 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color((0xFF000000)),
+      backgroundColor: const Color.fromARGB(255, 0, 0, 0),
       drawer: CustomDrawer(
         user: users[0],
       ),
       appBar: AppBar(
-        backgroundColor: Colors.purple[800],
-        title: const Text("Home"),
+        backgroundColor: Colors.black,
+        elevation: 2,
+        shadowColor: Color(0xFF555555),
+        title: const Text(
+          "\\.Splash",
+        ),
       ),
       body: SingleChildScrollView(
           child: Column(
         children: [
+          SizedBox(
+            height: 5,
+          ),
           Wrap(
               spacing: 6,
               crossAxisAlignment: WrapCrossAlignment.center,

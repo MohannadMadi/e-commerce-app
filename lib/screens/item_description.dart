@@ -1,7 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:course/custom_widgets/rating_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../model/item_card_class.dart';
 
 class DescriptionPage extends StatefulWidget {
@@ -17,12 +19,20 @@ class DescriptionPage extends StatefulWidget {
 
 class _DescriptionPageState extends State<DescriptionPage> {
   List<Item> favorites = [];
+  List<Widget> icons = [];
   int counter = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        elevation: 2,
+        shadowColor: Color(0xFF555555),
+        title: const Text(
+          "\\.Splash",
+        ),
+      ),
+      backgroundColor: Colors.black,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -56,15 +66,7 @@ class _DescriptionPageState extends State<DescriptionPage> {
                 decoration: BoxDecoration(
                     color: Colors.orange.shade200,
                     borderRadius: BorderRadius.circular(9)),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Icon(
-                        Icons.star_rate,
-                        color: Colors.orange[900],
-                      ),
-                      Text("${widget.item.rating}")
-                    ]),
+                child: CustomRatingIndicator(item: widget.item),
               ),
               Container(
                 width: 40,
@@ -93,22 +95,42 @@ class _DescriptionPageState extends State<DescriptionPage> {
                 margin: EdgeInsets.only(left: 10),
                 child: Text(
                   widget.item.itemName!,
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 25,
+                      fontWeight: FontWeight.w600),
                 ),
               ),
             ],
           ),
           ListTile(
-            title: Text("Description"),
-            trailing: Text("sad"),
+            title: Text(
+              "Description",
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+            trailing: Text(
+              "sad",
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
           ),
           Row(
             children: [
-              IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.exposure_minus_1_outlined)),
-              Text("${counter}"),
-              IconButton(onPressed: () {}, icon: Icon(Icons.plus_one))
+              InkWell(
+                child: Text(
+                  "+",
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                ),
+              ),
+              Text(
+                "${counter}",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              InkWell(
+                child: Text(
+                  "+",
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                ),
+              )
             ],
           )
         ],
