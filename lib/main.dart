@@ -1,3 +1,4 @@
+import 'package:course/screens/sign_in.dart';
 import 'package:flutter/material.dart';
 import 'custom_widgets/item_card_widget.dart';
 import 'model/item_card_class.dart';
@@ -18,6 +19,6 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-        debugShowCheckedModeBanner: false, home: HomeScreen());
+        debugShowCheckedModeBanner: false, home: SignInPage());
   }
 }
