@@ -26,7 +26,8 @@ class _HomeScreenState extends State<HomeScreen> {
         elevation: 2,
         shadowColor: Color(0xFF555555),
         title: const Text(
-          "\\.Splash",
+          ".\\Splash",
+          style: TextStyle(color: Colors.white70),
         ),
       ),
       body: SingleChildScrollView(

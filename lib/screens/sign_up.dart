@@ -1,16 +1,15 @@
-import 'package:course/screens/sign_up.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 
-class SignInPage extends StatefulWidget {
-  const SignInPage({super.key});
+class SignUpPage extends StatefulWidget {
+  const SignUpPage({super.key});
 
   @override
-  State<SignInPage> createState() => _SignInPageState();
+  State<SignUpPage> createState() => _SignUpPageState();
 }
 
-class _SignInPageState extends State<SignInPage> {
+class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,12 +31,43 @@ class _SignInPageState extends State<SignInPage> {
         child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
           const SizedBox(
             width: double.infinity,
-            height: 70,
+            height: 20,
           ),
-          Text(".\\Splash",
-              style: TextStyle(color: Colors.white70, fontSize: 40)),
+          Container(
+              width: 130,
+              height: 130,
+              decoration: BoxDecoration(
+                  color: Color.fromARGB(255, 19, 19, 19),
+                  borderRadius: BorderRadius.circular(70)),
+              child: const Icon(
+                Icons.person,
+                size: 120,
+                color: Colors.grey,
+              )),
           SizedBox(
-            height: 100,
+            height: 40,
+          ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width - 40,
+            child: TextFormField(
+              cursorColor: Colors.white,
+              cursorHeight: 25,
+              decoration: const InputDecoration(
+                suffixIcon: Icon(Icons.person),
+                suffixIconColor: Colors.grey,
+                labelStyle: TextStyle(color: Colors.white70, fontSize: 20),
+                filled: true,
+                fillColor: Color.fromARGB(255, 19, 19, 19),
+                labelText: 'Username',
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(24))),
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(24))),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 20,
           ),
           SizedBox(
             width: MediaQuery.of(context).size.width - 40,
@@ -80,19 +110,29 @@ class _SignInPageState extends State<SignInPage> {
               ),
             ),
           ),
-          Container(
+          SizedBox(
             height: 30,
+          ),
+          SizedBox(
             width: MediaQuery.of(context).size.width - 40,
-            alignment: Alignment.bottomRight,
-            child: InkWell(
-              onTap: () {},
-              child: const Text(
-                "Forgot Password?",
-                style: TextStyle(color: Colors.white70, fontSize: 15),
+            child: TextFormField(
+              cursorColor: Colors.white,
+              cursorHeight: 25,
+              decoration: const InputDecoration(
+                suffixIcon: Icon(Icons.lock),
+                suffixIconColor: Colors.grey,
+                labelStyle: TextStyle(color: Colors.white70, fontSize: 20),
+                filled: true,
+                fillColor: Color.fromARGB(255, 19, 19, 19),
+                labelText: 'Re_Enter Password',
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(24))),
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(24))),
               ),
             ),
           ),
-          const SizedBox(
+          SizedBox(
             height: 40,
           ),
           InkWell(
@@ -107,34 +147,13 @@ class _SignInPageState extends State<SignInPage> {
                     color: Color.fromARGB(255, 19, 19, 19),
                     borderRadius: BorderRadius.circular(20)),
                 child: const Text(
-                  "SIGN IN",
+                  "SIGN UP",
                   style: TextStyle(color: Colors.white, fontSize: 28),
                 ),
               )),
-          Container(
-            height: 250,
-            width: double.infinity,
-            alignment: Alignment.bottomCenter,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Don't have an accoount? ",
-                  style: TextStyle(fontSize: 15, color: Colors.white70),
-                ),
-                InkWell(
-                  onTap: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => SignUpPage()));
-                  },
-                  child: Text("Create Account",
-                      style: TextStyle(color: Colors.white, fontSize: 20)),
-                )
-              ],
-            ),
-          )
         ]),
       ),
     );
+    ;
   }
 }
