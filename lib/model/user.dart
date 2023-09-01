@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'item_card_class.dart';
 
 class User {
@@ -18,8 +20,11 @@ class User {
 
 User mohannad = User(
     userName: "Mohannad Madi",
-    email: "mohannadmadi12@gmail.com",
-    password: "imsocool",
+    email: "1",
+    password: "1",
     profilePic: "images/profilePic.jpeg");
 
 List<User> users = [mohannad];
+late List<List<String>> logInInfo = [
+  [mohannad.email, mohannad.password],
+];
