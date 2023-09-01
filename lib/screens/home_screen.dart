@@ -7,7 +7,8 @@ import '../model/item_card_class.dart';
 import '../model/user.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  User user;
+  HomeScreen({super.key, required this.user});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -19,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 0, 0, 0),
       drawer: CustomDrawer(
-        user: users[0],
+        user: users[widget.user.id],
       ),
       appBar: AppBar(
         backgroundColor: Colors.black,

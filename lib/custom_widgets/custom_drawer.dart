@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
+
 import 'package:course/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -41,11 +43,22 @@ class _CustomDrawerState extends State<CustomDrawer> {
                     SizedBox(
                       width: 5,
                     ),
-                    CircleAvatar(
-                      backgroundColor: Colors.white,
-                      radius: 45,
-                      foregroundImage: AssetImage(widget.user.profilePic!),
-                    ),
+                    widget.user.profilePic == null
+                        ? CircleAvatar(
+                            backgroundColor: Color.fromARGB(255, 19, 19, 19),
+                            child: const Icon(
+                              Icons.person,
+                              size: 80,
+                              color: Colors.grey,
+                            ),
+                            radius: 45,
+                          )
+                        : CircleAvatar(
+                            backgroundColor: Colors.white,
+                            radius: 45,
+                            foregroundImage:
+                                AssetImage(widget.user.profilePic!),
+                          ),
                     SizedBox(
                       width: 10,
                     ),
@@ -67,9 +80,10 @@ class _CustomDrawerState extends State<CustomDrawer> {
               color: Colors.blue,
             ),
             text: "Home Page",
-            pageRoute: HomeScreen(),
+            pageRoute: HomeScreen(
+              user: widget.user,
+            ),
           )
-          
         ],
       ),
     );

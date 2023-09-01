@@ -1,4 +1,5 @@
 import 'package:course/model/user.dart';
+import 'package:course/screens/home_screen.dart';
 import 'package:course/screens/sign_up.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -14,12 +15,15 @@ class SignInPage extends StatefulWidget {
 class _SignInPageState extends State<SignInPage> {
   String? email;
   String? password;
-  SnackBar logged = SnackBar(
+  late bool logged;
+  SnackBar logInSuccesful = SnackBar(
       content: Container(
     child: Text("log in succeful"),
   ));
-  void signIn() {
-    ScaffoldMessenger.of(context).showSnackBar(logged);
+  void signIn(User user) {
+    ScaffoldMessenger.of(context).showSnackBar(logInSuccesful);
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => HomeScreen(user: user)));
   }
 
   @override
@@ -62,6 +66,7 @@ class _SignInPageState extends State<SignInPage> {
                 },
                 cursorColor: Colors.white,
                 cursorHeight: 25,
+                style: TextStyle(color: Colors.white70),
                 decoration: const InputDecoration(
                   suffixIcon: Icon(Icons.mail),
                   suffixIconColor: Colors.grey,
@@ -89,6 +94,7 @@ class _SignInPageState extends State<SignInPage> {
                     password = value;
                   });
                 },
+                style: TextStyle(color: Colors.white70),
                 decoration: const InputDecoration(
                   suffixIcon: Icon(Icons.lock),
                   suffixIconColor: Colors.grey,
@@ -120,20 +126,21 @@ class _SignInPageState extends State<SignInPage> {
             ),
             InkWell(
                 onTap: () {
-                  users.any((element) {
-                    if (element.password == password &&
-                        element.email == email) {
-                      signIn();
-                    } else {
-                      showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                                title: Text("Error"),
-                                content: Text("wrong email or password"),
-                              ));
-                    }
-                    return true;
-                  });
+                  logged = users.any((element) =>
+                      element.password == password && element.email == email);
+
+                  if (logged) {
+                    signIn(
+                        users.firstWhere((element) => element.email == email));
+                  } else {
+                    showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                              title: Text("Error"),
+                              content: Text("wrong email or password"),
+                            ));
+                  }
+                  ;
                 },
                 child: Container(
                   alignment: Alignment.center,
