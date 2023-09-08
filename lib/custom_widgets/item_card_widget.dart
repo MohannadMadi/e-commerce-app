@@ -7,7 +7,9 @@ import '../screens/item_description.dart';
 
 class ItemCard extends StatefulWidget {
   final Item item;
-  const ItemCard({super.key, required this.item});
+
+  Function onCartPressed;
+  ItemCard({super.key, required this.item, required this.onCartPressed});
 
   @override
   State<ItemCard> createState() => _ItemCardState();
@@ -15,7 +17,7 @@ class ItemCard extends StatefulWidget {
 
 class _ItemCardState extends State<ItemCard> {
   bool isCartChecked = false;
-
+  GlobalKey product = GlobalKey();
   @override
   Widget build(BuildContext context) {
     double cardSize = (MediaQuery.of(context).size.width / 2.25) < 200
@@ -68,12 +70,24 @@ class _ItemCardState extends State<ItemCard> {
                         SizedBox(
                           height: 10,
                         ),
-                        Text(
-                          widget.item.itemName!,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                          ),
+                        Row(
+                          children: [
+                            Text(
+                              widget.item.itemName!,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                              ),
+                            ),
+                            IconButton(
+                                onPressed: () {
+                                  widget.onCartPressed();
+                                },
+                                icon: Icon(
+                                  Icons.shopping_cart,
+                                  color: Colors.amber,
+                                ))
+                          ],
                         ),
                         Container(
                           width: cardSize - 10,
@@ -105,6 +119,7 @@ class _ItemCardState extends State<ItemCard> {
               ],
             ),
           ),
+          ////////////////////////////////////////////////////////////////
           // FavoriteButton(onChange: ,)
         ],
       ),

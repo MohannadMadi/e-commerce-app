@@ -8,7 +8,7 @@ class User {
   String email;
   String password;
   List<Item>? favorites;
-  List<Item>? addedTocart;
+  List<Item> addedTocart;
   int id;
   User(
       {this.profilePic,
@@ -16,15 +16,18 @@ class User {
       required this.email,
       required this.password,
       required this.id,
-      this.addedTocart,
+      required this.addedTocart,
       this.favorites});
 }
 
 User mohannad = User(
-    userName: "Mohannad Madi",
-    email: "1",
-    password: "1",
-    id: 0,
-    profilePic: "images/profilePic.jpeg");
-User bosbos = User(userName: "Bosbos", email: "2", password: "2", id: 1);
+  userName: "Mohannad Madi",
+  email: "1",
+  password: "1",
+  id: 0,
+  addedTocart: [],
+  profilePic: "images/profilePic.jpeg",
+);
+User bosbos =
+    User(addedTocart: [], userName: "Bosbos", email: "2", password: "2", id: 1);
 List<User> users = [mohannad, bosbos];

@@ -1,3 +1,4 @@
+import 'package:course/custom_widgets/item_copy.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -15,42 +16,123 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  double bottom = 40;
+  double left = 40;
+  bool animate = false;
+  late Item selectedItem = item1;
+  late Offset itemPosition = Offset(0, 0);
   @override
+  void initState() {
+    super.initState();
+  }
+
+  getPos(GlobalKey _productKey) {
+    RenderBox renderBox =
+        _productKey.currentContext!.findRenderObject() as RenderBox;
+    itemPosition = renderBox.localToGlobal(Offset.zero);
+    print(itemPosition);
+  }
+
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 0, 0, 0),
-      drawer: CustomDrawer(
-        user: users[widget.user.id],
-      ),
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        elevation: 2,
-        shadowColor: Color(0xFF555555),
-        title: const Text(
-          ".\\Splash",
-          style: TextStyle(color: Colors.white70),
-        ),
-      ),
-      body: SingleChildScrollView(
-          child: Column(
-        children: [
-          SizedBox(
-            height: 5,
+    return Stack(
+      children: [
+        Scaffold(
+          backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+          drawer: CustomDrawer(
+            user: users[widget.user.id],
           ),
-          Wrap(
-              spacing: 6,
-              crossAxisAlignment: WrapCrossAlignment.center,
+          appBar: AppBar(
+            backgroundColor: Colors.black,
+            elevation: 2,
+            shadowColor: Color(0xFF555555),
+            title: const Text(
+              ".\\Splash",
+              style: TextStyle(color: Colors.white70),
+            ),
+          ),
+          body: Container(
+            height: double.infinity,
+            child: Column(
               children: [
-                ...items
-                    .map((e) => Padding(
-                          padding: const EdgeInsets.only(top: 6.0),
-                          child: ItemCard(item: e),
-                        ))
-                    .toList()
-              ]),
-          Row()
-        ],
-      )),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Column(
+                            children: [
+                              Wrap(
+                                  spacing: 6,
+                                  crossAxisAlignment: WrapCrossAlignment.center,
+                                  children: [
+                                    ...items.map((e) {
+                                      final GlobalKey _productKey = GlobalKey(
+                                          debugLabel:
+                                              "item ${items.indexOf(e)}");
+                                      return Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 6.0),
+                                        child: Column(
+                                          children: [
+                                            ItemCard(
+                                              key: _productKey,
+                                              item: e,
+                                              onCartPressed: () {
+                                                setState(() {
+                                                  selectedItem = e;
+                                                  getPos(_productKey);
+                                                  e.animate = !e.animate;
+                                                  bottom = itemPosition.dy;
+                                                  left = itemPosition.dx;
+                                                  animate = e.animate;
+
+                                                  if (widget.user.addedTocart
+                                                      .contains(e)) {
+                                                    widget.user.addedTocart
+                                                        .remove(e);
+                                                    animate = e.animate;
+                                                  } else {
+                                                    widget.user.addedTocart
+                                                        .add(e);
+                                                  }
+                                                });
+                                              },
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    }).toList()
+                                  ]),
+                            ],
+                          ),
+                          Row()
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+        Positioned(
+          child: Container(
+            width: double.infinity,
+            child: Icon(Icons.shopping_cart),
+            height: 50,
+            color: Colors.purple,
+          ),
+        ),
+        AnimatedPositioned(
+            top: bottom,
+            left: left,
+            child: animate ? ItemCopy(item: selectedItem) : SizedBox(),
+            duration: Duration(seconds: 1))
+      ],
     );
   }
 }

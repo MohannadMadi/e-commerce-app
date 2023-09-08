@@ -4,6 +4,8 @@ import 'custom_widgets/item_card_widget.dart';
 import 'model/item_card_class.dart';
 import 'screens/home_screen.dart';
 
+TextStyle big = TextStyle(color: Colors.red, fontSize: 50);
+TextStyle small = TextStyle(color: Colors.green, fontSize: 20);
 void main() {
   runApp(const MyApp());
 }
@@ -16,9 +18,16 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  ThemeData customTheme = ThemeData.dark()
+      .copyWith(appBarTheme: AppBarTheme(backgroundColor: Colors.purple));
+  bool dark = false;
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-        debugShowCheckedModeBanner: false, home: SignInPage());
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        body: SignInPage(),
+      ),
+    );
   }
 }
