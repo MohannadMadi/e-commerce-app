@@ -27,6 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   getPos(GlobalKey _productKey) {
+    
     RenderBox renderBox =
         _productKey.currentContext!.findRenderObject() as RenderBox;
     itemPosition = renderBox.localToGlobal(Offset.zero);
@@ -130,7 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
         AnimatedPositioned(
             top: bottom,
             left: left,
-            child: animate ? ItemCopy(item: selectedItem) : SizedBox(),
+            child: ItemCopy(item: selectedItem),
             duration: Duration(seconds: 1))
       ],
     );

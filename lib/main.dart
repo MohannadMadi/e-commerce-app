@@ -1,3 +1,4 @@
+import 'package:course/screens/position_finder.dart';
 import 'package:course/screens/sign_in.dart';
 import 'package:flutter/material.dart';
 import 'custom_widgets/item_card_widget.dart';
@@ -25,8 +26,9 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData.dark(),
       home: Scaffold(
-        body: SignInPage(),
+        body: PositionFinder(),
       ),
     );
   }
