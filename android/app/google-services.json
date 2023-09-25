@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "571975210880",
+    "project_id": "splash-131020",
+    "storage_bucket": "splash-131020.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:571975210880:android:35ec0d2aac25f970355365",
+        "android_client_info": {
+          "package_name": "com.example.course"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkJ9GmRHLN-kx31PTWY-LEfI6SlCDZVUE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
