@@ -1,6 +1,8 @@
 import 'package:course/services/firebase_auth_services.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:email_validator/email_validator.dart';
+import 'package:flutter_pw_validator/Resource/Strings.dart';
+import 'package:flutter_pw_validator/flutter_pw_validator.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -11,8 +13,35 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage> {
   FirebaseAuthServices _firebaseAuthServices = FirebaseAuthServices();
-  late String email;
-  late String password;
+  String email = '';
+  String reEnteredPassword = '';
+  TextEditingController passwordController = TextEditingController();
+  final _formKey = GlobalKey();
+//--validation--//
+  bool validateEmail(String email) {
+    return EmailValidator.validate(email);
+  }
+
+  bool validPassword = false;
+
+  signUp(String email, bool validPassword) {
+    validateEmail(email) && validPassword
+        ? _firebaseAuthServices.signUp(email, passwordController.text)
+        : showDialog(
+            context: context,
+            builder: (context) {
+              return Container(
+                child: Center(
+                  child: Text(validPassword
+                      ? "Invalid Email"
+                      : validateEmail(email)
+                          ? "Invalid Password"
+                          : "Invalid Email and Password"),
+                ),
+              );
+            });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,57 +103,60 @@ class _SignUpPageState extends State<SignUpPage> {
             SizedBox(
               height: 20,
             ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width - 40,
-              child: TextFormField(
-                validator: (email) {},
-                onChanged: (value) {
-                  setState(() {
-                    email = value;
-                  });
-                },
-                cursorColor: Colors.white,
-                cursorHeight: 25,
-                decoration: const InputDecoration(
-                  suffixIcon: Icon(Icons.mail),
-                  suffixIconColor: Colors.grey,
-                  labelStyle: TextStyle(color: Colors.white70, fontSize: 20),
-                  filled: true,
-                  fillColor: Color.fromARGB(255, 19, 19, 19),
-                  labelText: 'Email',
-                  focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(24))),
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(24))),
+            Form(
+              key: _formKey,
+              child: Column(children: [
+                SizedBox(
+                  width: MediaQuery.of(context).size.width - 40,
+                  child: TextFormField(
+                    validator: (email) {},
+                    onChanged: (value) {
+                      setState(() {
+                        email = value;
+                      });
+                    },
+                    cursorColor: Colors.white,
+                    cursorHeight: 25,
+                    decoration: const InputDecoration(
+                      suffixIcon: Icon(Icons.mail),
+                      suffixIconColor: Colors.grey,
+                      labelStyle:
+                          TextStyle(color: Colors.white70, fontSize: 20),
+                      filled: true,
+                      fillColor: Color.fromARGB(255, 19, 19, 19),
+                      labelText: 'Email',
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(24))),
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(24))),
+                    ),
+                  ),
                 ),
-              ),
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width - 40,
-              child: TextFormField(
-                onChanged: (value) {
-                  setState(() {
-                    password = value;
-                  });
-                },
-                cursorColor: Colors.white,
-                cursorHeight: 25,
-                decoration: const InputDecoration(
-                  suffixIcon: Icon(Icons.lock),
-                  suffixIconColor: Colors.grey,
-                  labelStyle: TextStyle(color: Colors.white70, fontSize: 20),
-                  filled: true,
-                  fillColor: Color.fromARGB(255, 19, 19, 19),
-                  labelText: 'Password',
-                  focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(24))),
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(24))),
+                SizedBox(
+                  height: 30,
                 ),
-              ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width - 40,
+                  child: TextFormField(
+                    controller: passwordController,
+                    cursorColor: Colors.white,
+                    cursorHeight: 25,
+                    decoration: const InputDecoration(
+                      suffixIcon: Icon(Icons.lock),
+                      suffixIconColor: Colors.grey,
+                      labelStyle:
+                          TextStyle(color: Colors.white70, fontSize: 20),
+                      filled: true,
+                      fillColor: Color.fromARGB(255, 19, 19, 19),
+                      labelText: 'Password',
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(24))),
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(24))),
+                    ),
+                  ),
+                ),
+              ]),
             ),
             const SizedBox(
               height: 30,
@@ -134,6 +166,11 @@ class _SignUpPageState extends State<SignUpPage> {
               child: TextFormField(
                 cursorColor: Colors.white,
                 cursorHeight: 25,
+                onChanged: (value) {
+                  setState(() {
+                    reEnteredPassword = value;
+                  });
+                },
                 decoration: const InputDecoration(
                   suffixIcon: Icon(Icons.lock),
                   suffixIconColor: Colors.grey,
@@ -149,11 +186,46 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
             ),
             SizedBox(
+              height: 20,
+            ),
+            FlutterPwValidator(
+                defaultColor: Colors.white70,
+                failureColor: Colors.red.shade800,
+                successColor: Colors.green.shade800,
+                width: MediaQuery.of(context).size.width - 40,
+                height: 180,
+                minLength: 8,
+                uppercaseCharCount: 1,
+                lowercaseCharCount: 1,
+                specialCharCount: 1,
+                onSuccess: () {
+                  debugPrint("success");
+                  setState(() {
+                    validPassword = true;
+                  });
+                },
+                onFail: () {
+                  debugPrint("fail");
+                  setState(() {
+                    validPassword = false;
+                  });
+                },
+                controller: passwordController),
+            SizedBox(
               height: 40,
             ),
             InkWell(
                 onTap: () {
-                  _firebaseAuthServices.signUp(email, password);
+                  reEnteredPassword == passwordController.text
+                      ? signUp(email, validPassword)
+                      : showDialog(
+                          context: context,
+                          builder: (context) {
+                            return Container(
+                              child:
+                                  Center(child: Text("Password not matching")),
+                            );
+                          });
                 },
                 child: Container(
                   alignment: Alignment.center,

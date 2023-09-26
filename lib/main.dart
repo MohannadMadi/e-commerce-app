@@ -1,5 +1,6 @@
 import 'package:course/firebase_options.dart';
 import 'package:course/screens/sign_in.dart';
+import 'package:course/screens/sign_up.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'custom_widgets/item_card_widget.dart';
@@ -32,7 +33,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
       home: Scaffold(
-        body: SignInPage(),
+        body: SignUpPage(),
       ),
     );
   }
