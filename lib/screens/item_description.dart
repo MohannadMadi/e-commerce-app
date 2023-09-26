@@ -2,8 +2,6 @@
 import 'package:course/custom_widgets/rating_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../model/item_card_class.dart';
 
 class DescriptionPage extends StatefulWidget {

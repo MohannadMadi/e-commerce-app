@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'item_card_class.dart';
 
 class User {

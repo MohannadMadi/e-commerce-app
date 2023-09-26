@@ -1,11 +1,11 @@
-import 'package:course/services/firebase_options.dart';
+import 'package:course/firebase_options.dart';
 import 'package:course/screens/sign_in.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'custom_widgets/item_card_widget.dart';
 import 'model/item_card_class.dart';
 import 'screens/home_screen.dart';
-import 'services/firebase_options.dart';
+import 'firebase_options.dart';
 
 TextStyle big = TextStyle(color: Colors.red, fontSize: 50);
 TextStyle small = TextStyle(color: Colors.green, fontSize: 20);

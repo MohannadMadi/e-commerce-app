@@ -1,6 +1,6 @@
+import 'package:course/services/firebase_auth_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -10,6 +10,9 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  FirebaseAuthServices _firebaseAuthServices = FirebaseAuthServices();
+  late String email;
+  late String password;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,6 +77,12 @@ class _SignUpPageState extends State<SignUpPage> {
             SizedBox(
               width: MediaQuery.of(context).size.width - 40,
               child: TextFormField(
+                validator: (email) {},
+                onChanged: (value) {
+                  setState(() {
+                    email = value;
+                  });
+                },
                 cursorColor: Colors.white,
                 cursorHeight: 25,
                 decoration: const InputDecoration(
@@ -96,6 +105,11 @@ class _SignUpPageState extends State<SignUpPage> {
             SizedBox(
               width: MediaQuery.of(context).size.width - 40,
               child: TextFormField(
+                onChanged: (value) {
+                  setState(() {
+                    password = value;
+                  });
+                },
                 cursorColor: Colors.white,
                 cursorHeight: 25,
                 decoration: const InputDecoration(
@@ -139,7 +153,7 @@ class _SignUpPageState extends State<SignUpPage> {
             ),
             InkWell(
                 onTap: () {
-                  print("sad");
+                  _firebaseAuthServices.signUp(email, password);
                 },
                 child: Container(
                   alignment: Alignment.center,
@@ -157,6 +171,5 @@ class _SignUpPageState extends State<SignUpPage> {
         ),
       ),
     );
-    ;
   }
 }
