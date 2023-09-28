@@ -1,0 +1,3 @@
+-signUp
+    -add error handling
+    -make a custom user

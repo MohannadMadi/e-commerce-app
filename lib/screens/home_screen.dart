@@ -1,14 +1,13 @@
 import 'package:course/custom_widgets/item_copy.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import '../custom_widgets/custom_drawer.dart';
 import '../custom_widgets/item_card_widget.dart';
 import '../model/item_card_class.dart';
 import '../model/user.dart';
 
 class HomeScreen extends StatefulWidget {
-  User user;
+  CustomUser user;
   HomeScreen({super.key, required this.user});
 
   @override
@@ -27,7 +26,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   getPos(GlobalKey _productKey) {
-    
     RenderBox renderBox =
         _productKey.currentContext!.findRenderObject() as RenderBox;
     itemPosition = renderBox.localToGlobal(Offset.zero);
@@ -40,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
         Scaffold(
           backgroundColor: const Color.fromARGB(255, 0, 0, 0),
           drawer: CustomDrawer(
-            user: users[widget.user.id],
+            user: widget.user,
           ),
           appBar: AppBar(
             backgroundColor: Colors.black,
@@ -120,19 +118,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
-        Positioned(
-          child: Container(
-            width: double.infinity,
-            child: Icon(Icons.shopping_cart),
-            height: 50,
-            color: Colors.purple,
-          ),
-        ),
-        AnimatedPositioned(
-            top: bottom,
-            left: left,
-            child: ItemCopy(item: selectedItem),
-            duration: Duration(seconds: 1))
       ],
     );
   }

@@ -19,7 +19,7 @@ class _SignInPageState extends State<SignInPage> {
       content: Container(
     child: Text("log in succeful"),
   ));
-  void signIn(User user) {
+  void signIn(CustomUser user) {
     ScaffoldMessenger.of(context).showSnackBar(logInSuccesful);
     Navigator.of(context)
         .push(MaterialPageRoute(builder: (context) => HomeScreen(user: user)));

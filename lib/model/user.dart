@@ -1,14 +1,14 @@
 import 'item_card_class.dart';
 
-class User {
+class CustomUser {
   String? profilePic;
   String userName;
   String email;
   String password;
   List<Item>? favorites;
   List<Item> addedTocart;
-  int id;
-  User(
+  final String id;
+  CustomUser(
       {this.profilePic,
       required this.userName,
       required this.email,
@@ -18,14 +18,14 @@ class User {
       this.favorites});
 }
 
-User mohannad = User(
+CustomUser mohannad = CustomUser(
   userName: "Mohannad Madi",
   email: "1",
   password: "1",
-  id: 0,
+  id: "0",
   addedTocart: [],
   profilePic: "images/profilePic.jpeg",
 );
-User bosbos =
-    User(addedTocart: [], userName: "Bosbos", email: "2", password: "2", id: 1);
-List<User> users = [mohannad, bosbos];
+CustomUser bosbos = CustomUser(
+    addedTocart: [], userName: "Bosbos", email: "2", password: "2", id: "1");
+List<CustomUser> users = [mohannad, bosbos];
