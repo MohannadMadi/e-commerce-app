@@ -2,7 +2,7 @@ import 'item_card_class.dart';
 
 class CustomUser {
   String? profilePic;
-  String userName;
+  String userName = '';
   String email;
   String password;
   List<Item>? favorites;

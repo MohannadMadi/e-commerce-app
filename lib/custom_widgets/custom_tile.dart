@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 class CustomListTile extends StatefulWidget {
-  String text;
-  Widget pageRoute;
-  Icon icon;
+  final String text;
+  final Widget pageRoute;
+  final Icon icon;
   CustomListTile({
     Key? key,
     required this.text,

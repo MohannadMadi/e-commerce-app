@@ -4,7 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 
 class FavoriteButton extends StatefulWidget {
-  Function onChange;
+  final Function onChange;
   FavoriteButton({
     Key? key,
     required this.onChange,

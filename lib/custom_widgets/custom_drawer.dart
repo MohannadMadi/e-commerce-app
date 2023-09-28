@@ -9,7 +9,7 @@ import 'package:course/model/user.dart';
 import 'custom_tile.dart';
 
 class CustomDrawer extends StatefulWidget {
-  CustomUser user;
+  final CustomUser user;
   CustomDrawer({
     Key? key,
     required this.user,

@@ -1,7 +1,5 @@
-import 'package:course/custom_widgets/favorite_button.dart';
 import 'package:course/custom_widgets/rating_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../model/item_card_class.dart';
 import '../screens/item_description.dart';
 

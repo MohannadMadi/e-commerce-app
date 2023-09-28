@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class FirebaseAuthServices {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
-// Create CustomUser from FirebaseUser
+// CreateCustomUserFromFirebaseUser
 
   dynamic _createCustomUser(
       User firebaseUser, String userName, String password) {
@@ -18,11 +18,13 @@ class FirebaseAuthServices {
   }
 
 // SignUp
+
   Future<dynamic> signUp(String userName, String email, String password) async {
     try {
       UserCredential userCredential = await _firebaseAuth
           .createUserWithEmailAndPassword(email: email, password: password);
       User firebaseUser = userCredential.user!;
+      firebaseUser.updateDisplayName(userName);
       CustomUser customUser =
           _createCustomUser(firebaseUser, userName, password);
       return customUser;
@@ -30,4 +32,22 @@ class FirebaseAuthServices {
       debugPrint("Error Signing up: ${error.code}");
     }
   }
+
+// SignIN
+  // SignInWithEmailAndPassword
+  Future<dynamic> signIn(email, passWord) async {
+    try {
+      UserCredential userCredential = await _firebaseAuth
+          .signInWithEmailAndPassword(email: email, password: passWord);
+      User firebaseUser = userCredential.user!;
+      CustomUser customUser =
+          _createCustomUser(firebaseUser, firebaseUser.displayName!, passWord);
+
+      debugPrint(firebaseUser.toString());
+      return customUser;
+    } on FirebaseAuthException catch (error) {
+      debugPrint(error.code);
+    }
+  }
+  // SignInAnon
 }
