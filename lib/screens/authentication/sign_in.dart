@@ -33,6 +33,16 @@ class _SignInPageState extends State<SignInPage> {
         connectivityResult == ConnectivityResult.wifi;
   }
 
+  showError(String errorMessage) {
+    showDialog(
+        context: context,
+        builder: (context) => Center(
+              child: Container(
+                child: Text(errorMessage),
+              ),
+            ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -164,13 +174,7 @@ class _SignInPageState extends State<SignInPage> {
                             setState(() {
                               loading = false;
                             });
-                            showDialog(
-                                context: context,
-                                builder: (context) => Center(
-                                      child: Container(
-                                        child: Text("No Internet connection"),
-                                      ),
-                                    ));
+                            showError("no internet");
                           }
                         },
                         child: Container(

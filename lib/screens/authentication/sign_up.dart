@@ -36,19 +36,11 @@ class _SignUpPageState extends State<SignUpPage> {
       return _firebaseAuthServices.signUp(
           userName, email, passwordController.text);
     } else {
-      showDialog(
-          context: context,
-          builder: (context) {
-            return Container(
-              child: Center(
-                child: Text(validPassword
-                    ? "Invalid Email"
-                    : validateEmail(email)
-                        ? "Invalid Password"
-                        : "Invalid Email and Password"),
-              ),
-            );
-          });
+      _showError(validPassword
+          ? "Invalid Email"
+          : validateEmail(email)
+              ? "Invalid Password"
+              : "Invalid Email and Password");
     }
   }
 
@@ -57,6 +49,22 @@ class _SignUpPageState extends State<SignUpPage> {
     final connectivityResult = await Connectivity().checkConnectivity();
     return connectivityResult == ConnectivityResult.mobile ||
         connectivityResult == ConnectivityResult.wifi;
+  }
+
+  void _showError(String errorMessage) {
+    showDialog(
+      context: context,
+      builder: (context) => Center(
+        child: Text(
+          errorMessage,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              fontSize: 25,
+              color: Colors.white,
+              decoration: TextDecoration.none),
+        ),
+      ),
+    );
   }
 
   @override
@@ -303,31 +311,10 @@ class _SignUpPageState extends State<SignUpPage> {
                                 setState(() {
                                   loading = false;
                                 });
-                                showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return Container(
-                                        child: Center(
-                                            child: Text(
-                                          "Password not matching",
-                                          style: TextStyle(
-                                              fontSize: 23,
-                                              color: Colors.white70),
-                                        )),
-                                      );
-                                    });
+                                _showError("Password not matching");
                               }
                             } else {
-                              showDialog(
-                                  context: context,
-                                  builder: (context) => Container(
-                                      width: double.infinity,
-                                      child: Center(
-                                          child: Text(
-                                        "No Internet connection",
-                                        style: TextStyle(
-                                            fontSize: 20, color: Colors.white),
-                                      ))));
+                              _showError("No Internet connection");
                             }
                           },
                           child: Container(
