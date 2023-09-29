@@ -1,4 +1,5 @@
 import 'package:connectivity/connectivity.dart';
+import 'package:course/model/display_functions.dart';
 import 'package:course/screens/home_screen.dart';
 import 'package:course/services/firebase_auth_services.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,8 @@ class _SignUpPageState extends State<SignUpPage> {
   bool hidePassword = true;
   bool hideReEnterPassword = true;
   final _formKey = GlobalKey();
-//--validation--//
+
+  //*validation
   bool validateEmail(String email) {
     return EmailValidator.validate(email);
   }
@@ -34,13 +36,15 @@ class _SignUpPageState extends State<SignUpPage> {
   signUp(String userName, String email, bool validPassword) {
     if (validateEmail(email) && validPassword) {
       return _firebaseAuthServices.signUp(
-          userName, email, passwordController.text);
+          userName, email, passwordController.text, context);
     } else {
-      _showError(validPassword
-          ? "Invalid Email"
-          : validateEmail(email)
-              ? "Invalid Password"
-              : "Invalid Email and Password");
+      displayFunctions.showError(
+          validPassword
+              ? "Invalid Email"
+              : validateEmail(email)
+                  ? "Invalid Password"
+                  : "Invalid Email and Password",
+          context);
     }
   }
 
@@ -51,22 +55,7 @@ class _SignUpPageState extends State<SignUpPage> {
         connectivityResult == ConnectivityResult.wifi;
   }
 
-  void _showError(String errorMessage) {
-    showDialog(
-      context: context,
-      builder: (context) => Center(
-        child: Text(
-          errorMessage,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-              fontSize: 25,
-              color: Colors.white,
-              decoration: TextDecoration.none),
-        ),
-      ),
-    );
-  }
-
+  DisplayFunctions displayFunctions = DisplayFunctions();
   @override
   Widget build(BuildContext context) {
     return loading
@@ -287,7 +276,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       SizedBox(
                         height: 40,
                       ),
-                      //! signInbutton
+                      //! signUpbutton
                       InkWell(
                           onTap: () async {
                             if (await isConnectedToInternet()) {
@@ -311,10 +300,12 @@ class _SignUpPageState extends State<SignUpPage> {
                                 setState(() {
                                   loading = false;
                                 });
-                                _showError("Password not matching");
+                                displayFunctions.showError(
+                                    "Password not matching", context);
                               }
                             } else {
-                              _showError("No Internet connection");
+                              displayFunctions.showError(
+                                  "No Internet connection", context);
                             }
                           },
                           child: Container(

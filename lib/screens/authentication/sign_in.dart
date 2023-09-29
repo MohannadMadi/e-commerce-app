@@ -159,7 +159,6 @@ class _SignInPageState extends State<SignInPage> {
                       height: 40,
                     ),
                     //!signInButton
-
                     InkWell(
                         onTap: () async {
                           if (validateEmail(email!)) {
@@ -178,7 +177,7 @@ class _SignInPageState extends State<SignInPage> {
                                         builder: (context) => HomeScreen(
                                               user: customUser,
                                             )));
-                              } else {}
+                              }
                             } else {
                               setState(() {
                                 loading = false;

@@ -21,7 +21,8 @@ class FirebaseAuthServices {
 
 // SignUp
 
-  Future<dynamic> signUp(String userName, String email, String password) async {
+  Future<dynamic> signUp(
+      String userName, String email, String password, context) async {
     try {
       UserCredential userCredential = await _firebaseAuth
           .createUserWithEmailAndPassword(email: email, password: password);
@@ -29,9 +30,18 @@ class FirebaseAuthServices {
       firebaseUser.updateDisplayName(userName);
       CustomUser customUser =
           _createCustomUser(firebaseUser, userName, password);
+      displayFunctions.showSucces("Signed up succesfully", context);
       return customUser;
     } on FirebaseAuthException catch (error) {
+      displayFunctions.showError(error.code, context);
       debugPrint("Error Signing up: ${error.code}");
+
+      // switch (error.code) {
+      //   case :
+
+      //     break;
+      //   default:
+      // }
     }
   }
 
@@ -44,7 +54,7 @@ class FirebaseAuthServices {
       User firebaseUser = userCredential.user!;
       CustomUser customUser =
           _createCustomUser(firebaseUser, firebaseUser.displayName!, passWord);
-
+      displayFunctions.showSucces("Signed in succesfully", context);
       debugPrint(userCredential.toString());
       return customUser;
     } on FirebaseAuthException catch (error) {
@@ -59,10 +69,21 @@ class FirebaseAuthServices {
               context);
           break;
         default:
-          debugPrint(error.code);
+          displayFunctions.showError(error.code, context);
       }
       debugPrint("----------------------------------------${error.code}");
     }
     // SignInAnon
+
+    //logOut
+  }
+
+  Future<void> signOut(context) async {
+    try {
+      await _firebaseAuth.signOut();
+      displayFunctions.showSucces("Signed out succesfully", context);
+    } on FirebaseException catch (error) {
+      displayFunctions.showError(error.code, context);
+    }
   }
 }

@@ -4,12 +4,14 @@ import 'package:flutter/src/widgets/framework.dart';
 
 class CustomListTile extends StatefulWidget {
   final String text;
-  final Widget pageRoute;
+  final Widget? pageRoute;
+  final Function? onpressed;
   final Icon icon;
   CustomListTile({
     Key? key,
+    this.onpressed,
     required this.text,
-    required this.pageRoute,
+    this.pageRoute,
     required this.icon,
   }) : super(key: key);
 
@@ -24,8 +26,10 @@ class _CustomListTileState extends State<CustomListTile> {
       children: [
         ListTile(
             onTap: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => widget.pageRoute));
+              widget.pageRoute == null
+                  ? widget.onpressed!()
+                  : Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => widget.pageRoute!));
             },
             leading: Text(
               widget.text,
