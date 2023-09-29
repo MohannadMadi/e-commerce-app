@@ -15,7 +15,6 @@ class FirebaseAuthServices {
     return CustomUser(
         userName: userName,
         email: firebaseUser.email!,
-        password: password,
         id: firebaseUser.uid,
         addedTocart: []);
   }
