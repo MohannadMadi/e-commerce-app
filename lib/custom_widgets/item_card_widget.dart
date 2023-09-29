@@ -5,9 +5,8 @@ import '../screens/item_description.dart';
 
 class ItemCard extends StatefulWidget {
   final Item item;
-
-  Function onCartPressed;
-  ItemCard({super.key, required this.item, required this.onCartPressed});
+  final Function onCartPressed;
+  const ItemCard({super.key, required this.item, required this.onCartPressed});
 
   @override
   State<ItemCard> createState() => _ItemCardState();

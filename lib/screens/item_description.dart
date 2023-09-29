@@ -1,12 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:course/custom_widgets/rating_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import '../model/item_card_class.dart';
 
 class DescriptionPage extends StatefulWidget {
-  Item item;
-  DescriptionPage({
+  final Item item;
+  const DescriptionPage({
     Key? key,
     required this.item,
   }) : super(key: key);

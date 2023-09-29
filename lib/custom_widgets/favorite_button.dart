@@ -1,11 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 class FavoriteButton extends StatefulWidget {
   final Function onChange;
-  FavoriteButton({
+  const FavoriteButton({
     Key? key,
     required this.onChange,
   }) : super(key: key);
@@ -15,9 +13,9 @@ class FavoriteButton extends StatefulWidget {
 }
 
 class _FavoriteButtonState extends State<FavoriteButton> {
-  @override
   bool isFavoriteChecked = false;
 
+  @override
   Widget build(BuildContext context) {
     return InkWell(
         onTap: () {

@@ -1,4 +1,3 @@
-import 'package:course/custom_widgets/item_copy.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import '../custom_widgets/custom_drawer.dart';
@@ -7,8 +6,8 @@ import '../model/item_card_class.dart';
 import '../model/user.dart';
 
 class HomeScreen extends StatefulWidget {
-  CustomUser user;
-  HomeScreen({super.key, required this.user});
+  final CustomUser user;
+  const HomeScreen({super.key, required this.user});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
