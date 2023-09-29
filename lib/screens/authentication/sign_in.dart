@@ -1,7 +1,10 @@
+import 'dart:ffi';
 import 'dart:io';
 
+import 'package:course/model/user.dart';
 import 'package:course/screens/home_screen.dart';
 import 'package:course/screens/authentication/sign_up.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:course/services/firebase_auth_services.dart';
@@ -17,8 +20,8 @@ class SignInPage extends StatefulWidget {
 
 class _SignInPageState extends State<SignInPage> {
   bool loading = false;
-  String? email;
-  String? password;
+  String? email = '';
+  String? password = '';
   late bool logged;
   SnackBar logInSuccesful = SnackBar(
       content: Container(
@@ -33,7 +36,7 @@ class _SignInPageState extends State<SignInPage> {
         connectivityResult == ConnectivityResult.wifi;
   }
 
-  showError(String errorMessage) {
+  _showError(String errorMessage) {
     showDialog(
         context: context,
         builder: (context) => Center(
@@ -41,6 +44,11 @@ class _SignInPageState extends State<SignInPage> {
                 child: Text(errorMessage),
               ),
             ));
+  }
+
+  // validation
+  bool validateEmail(String email) {
+    return EmailValidator.validate(email);
   }
 
   @override
@@ -154,27 +162,31 @@ class _SignInPageState extends State<SignInPage> {
 
                     InkWell(
                         onTap: () async {
-                          setState(() {
-                            loading = true;
-                          });
-                          if (await isConnectedToInternet()) {
-                            dynamic customUser = await _firebaseAuthServices
-                                .signIn(email, password);
+                          if (validateEmail(email!)) {
                             setState(() {
-                              loading = false;
+                              loading = true;
                             });
-                            Navigator.of(context)
-                                .pushReplacement(MaterialPageRoute(
-                                    builder: (context) => HomeScreen(
-                                          user: customUser,
-                                        )));
-
-                            debugPrint(customUser.toString());
+                            if (await isConnectedToInternet()) {
+                              dynamic customUser = await _firebaseAuthServices
+                                  .signIn(email, password, context);
+                              setState(() {
+                                loading = false;
+                              });
+                              if (customUser != null) {
+                                Navigator.of(context)
+                                    .pushReplacement(MaterialPageRoute(
+                                        builder: (context) => HomeScreen(
+                                              user: customUser,
+                                            )));
+                              } else {}
+                            } else {
+                              setState(() {
+                                loading = false;
+                              });
+                              _showError("no internet");
+                            }
                           } else {
-                            setState(() {
-                              loading = false;
-                            });
-                            showError("no internet");
+                            _showError("Invalid Email");
                           }
                         },
                         child: Container(
