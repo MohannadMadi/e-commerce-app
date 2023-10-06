@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import '../custom_widgets/custom_drawer.dart';
 import '../custom_widgets/item_card_widget.dart';
 import '../model/item_card_class.dart';
@@ -18,19 +17,20 @@ class _HomeScreenState extends State<HomeScreen> {
   double left = 40;
   bool animate = false;
   late Item selectedItem = item1;
-  late Offset itemPosition = Offset(0, 0);
+  late Offset itemPosition = const Offset(0, 0);
   @override
   void initState() {
     super.initState();
   }
 
-  getPos(GlobalKey _productKey) {
+  getPos(GlobalKey productKey) {
     RenderBox renderBox =
-        _productKey.currentContext!.findRenderObject() as RenderBox;
+        productKey.currentContext!.findRenderObject() as RenderBox;
     itemPosition = renderBox.localToGlobal(Offset.zero);
-    print(itemPosition);
+    debugPrint(itemPosition.toString());
   }
 
+  @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
@@ -42,13 +42,13 @@ class _HomeScreenState extends State<HomeScreen> {
           appBar: AppBar(
             backgroundColor: Colors.black,
             elevation: 2,
-            shadowColor: Color(0xFF555555),
+            shadowColor: const Color(0xFF555555),
             title: const Text(
               ".\\Splash",
               style: TextStyle(color: Colors.white70),
             ),
           ),
-          body: Container(
+          body: SizedBox(
             height: double.infinity,
             child: Column(
               children: [
@@ -58,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     SingleChildScrollView(
                       child: Column(
                         children: [
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
                           Column(
@@ -68,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   crossAxisAlignment: WrapCrossAlignment.center,
                                   children: [
                                     ...items.map((e) {
-                                      final GlobalKey _productKey = GlobalKey(
+                                      final GlobalKey productKey = GlobalKey(
                                           debugLabel:
                                               "item ${items.indexOf(e)}");
                                       return Padding(
@@ -77,12 +77,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                         child: Column(
                                           children: [
                                             ItemCard(
-                                              key: _productKey,
+                                              key: productKey,
                                               item: e,
                                               onCartPressed: () {
                                                 setState(() {
                                                   selectedItem = e;
-                                                  getPos(_productKey);
+                                                  getPos(productKey);
                                                   e.animate = !e.animate;
                                                   bottom = itemPosition.dy;
                                                   left = itemPosition.dx;
@@ -107,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ]),
                             ],
                           ),
-                          Row()
+                          const Row()
                         ],
                       ),
                     ),

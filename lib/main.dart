@@ -17,15 +17,13 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  ThemeData customTheme = ThemeData.dark()
-      .copyWith(appBarTheme: AppBarTheme(backgroundColor: Colors.purple));
   bool dark = false;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
-      home: Scaffold(
+      home: const Scaffold(
         body: SignInPage(),
       ),
     );

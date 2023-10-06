@@ -2,9 +2,9 @@
 
 import 'package:course/screens/authentication/sign_in.dart';
 import 'package:course/screens/home_screen.dart';
+import 'package:course/screens/settings/settings_screen.dart';
 import 'package:course/services/firebase_auth_services.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 import 'package:course/model/user.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -37,27 +37,27 @@ class _CustomDrawerState extends State<CustomDrawer> {
             children: [
               Container(
                 height: 200,
-                color: Colors.blueGrey[700],
+                color: const Color.fromARGB(255, 12, 12, 12),
                 child: Column(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 40,
                     ),
                     Row(
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           width: 5,
                         ),
                         widget.user.profilePic == null
-                            ? CircleAvatar(
+                            ? const CircleAvatar(
                                 backgroundColor:
                                     Color.fromARGB(255, 19, 19, 19),
-                                child: const Icon(
+                                radius: 45,
+                                child: Icon(
                                   Icons.person,
                                   size: 80,
                                   color: Colors.grey,
                                 ),
-                                radius: 45,
                               )
                             : CircleAvatar(
                                 backgroundColor: Colors.white,
@@ -65,13 +65,14 @@ class _CustomDrawerState extends State<CustomDrawer> {
                                 foregroundImage:
                                     AssetImage(widget.user.profilePic!),
                               ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                         Expanded(
                           child: Text(
                             widget.user.userName,
-                            style: TextStyle(fontSize: 35, color: Colors.white),
+                            style: const TextStyle(
+                                fontSize: 35, color: Colors.white),
                           ),
                         )
                       ],
@@ -80,10 +81,10 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 ),
               ),
               CustomListTile(
-                icon: Icon(
+                icon: const Icon(
                   Icons.home,
                   size: 45,
-                  color: Colors.blue,
+                  color: Colors.deepPurple,
                 ),
                 text: "Home Page",
                 pageRoute: HomeScreen(
@@ -91,8 +92,19 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 ),
               ),
               CustomListTile(
+                text: "Settings",
+                icon: const Icon(
+                  Icons.settings,
+                  size: 45,
+                  color: Colors.deepPurple,
+                ),
+                pageRoute: Settings(
+                  user: widget.user,
+                ),
+              ),
+              CustomListTile(
                   text: "Sign Out",
-                  onpressed: () async {
+                  onpressed: () {
                     setState(() {
                       loading = true;
                     });
@@ -103,10 +115,10 @@ class _CustomDrawerState extends State<CustomDrawer> {
                       loading = false;
                     });
                   },
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.logout_outlined,
                     size: 45,
-                    color: Colors.blue,
+                    color: Colors.deepPurple,
                   ))
             ],
           ),
@@ -121,7 +133,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                       color: Colors.white, size: 80),
                 ),
               )
-            : SizedBox(),
+            : const SizedBox(),
       ],
     );
   }

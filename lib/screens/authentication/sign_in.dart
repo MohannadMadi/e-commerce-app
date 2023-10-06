@@ -1,7 +1,3 @@
-import 'dart:ffi';
-import 'dart:io';
-
-import 'package:course/model/user.dart';
 import 'package:course/screens/home_screen.dart';
 import 'package:course/screens/authentication/sign_up.dart';
 import 'package:email_validator/email_validator.dart';

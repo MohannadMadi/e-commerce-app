@@ -1,13 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class CustomListTile extends StatefulWidget {
   final String text;
   final Widget? pageRoute;
   final Function? onpressed;
   final Icon icon;
-  CustomListTile({
+  const CustomListTile({
     Key? key,
     this.onpressed,
     required this.text,
@@ -33,12 +32,10 @@ class _CustomListTileState extends State<CustomListTile> {
             },
             leading: Text(
               widget.text,
-              style: TextStyle(color: Colors.white, fontSize: 25),
+              style: const TextStyle(color: Colors.white, fontSize: 25),
             ),
             trailing: widget.icon),
-        Divider(
-          color: Colors.blue,
-        )
+        const Divider()
       ],
     );
   }
