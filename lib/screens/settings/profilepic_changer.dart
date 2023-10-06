@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:course/model/user.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -16,9 +18,9 @@ class _ProfilePicChangerState extends State<ProfilePicChanger> {
   Future pickImage() async {
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-
     setState(() {
       image = pickedFile;
+      widget.user.profilePic = image!.path;
     });
   }
 
@@ -31,7 +33,9 @@ class _ProfilePicChangerState extends State<ProfilePicChanger> {
             child: Container(
               width: 40,
               child: Center(
-                child: CircleAvatar(
+                child: Container(
+                  width: 100,
+                  height: 100,
                   child: widget.user.profilePic == null
                       ? const CircleAvatar(
                           backgroundColor: Color.fromARGB(255, 19, 19, 19),
@@ -42,10 +46,8 @@ class _ProfilePicChangerState extends State<ProfilePicChanger> {
                             color: Colors.grey,
                           ),
                         )
-                      : CircleAvatar(
-                          backgroundColor: Colors.white,
-                          radius: 45,
-                          foregroundImage: AssetImage(widget.user.profilePic!),
+                      : Container(
+                          child: Image.file(File(widget.user.profilePic!)),
                         ),
                 ),
               ),
