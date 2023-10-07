@@ -60,11 +60,13 @@ class _CustomDrawerState extends State<CustomDrawer> {
                                   color: Colors.grey,
                                 ),
                               )
-                            : Container(
-                                child: Image.file(
-                                context.read<CustomUser>().profilePic!,
-                                width: 50,
-                              )),
+                            : CircleAvatar(
+                                backgroundColor: Colors.white,
+                                radius: 45,
+                                foregroundImage: FileImage(
+                                  context.read<CustomUser>().profilePic!,
+                                ),
+                              ),
                         const SizedBox(
                           width: 10,
                         ),
