@@ -3,10 +3,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:course/model/display_functions.dart';
 
-class FirebaseAuthServices {
+class FirebaseAuthServices extends ChangeNotifier {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final DisplayFunctions displayFunctions = DisplayFunctions();
-//error display
+
+  Stream<User> get firebaseUser {
+    return _firebaseAuth
+        .authStateChanges()
+        .map((User? firebaseUser) => firebaseUser!);
+  }
 
 // CreateCustomUserFromFirebaseUser
 

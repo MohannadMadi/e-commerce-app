@@ -2,7 +2,6 @@ import 'package:course/screens/home_screen.dart';
 import 'package:course/screens/authentication/sign_up.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:course/services/firebase_auth_services.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:connectivity/connectivity.dart';

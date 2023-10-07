@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 
 import 'package:course/model/user.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:provider/provider.dart';
 
 import 'custom_tile.dart';
 
@@ -48,7 +49,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                         const SizedBox(
                           width: 5,
                         ),
-                        widget.user.profilePic == null
+                        context.watch<CustomUser>().profilePic == null
                             ? const CircleAvatar(
                                 backgroundColor:
                                     Color.fromARGB(255, 19, 19, 19),
@@ -59,18 +60,17 @@ class _CustomDrawerState extends State<CustomDrawer> {
                                   color: Colors.grey,
                                 ),
                               )
-                            : CircleAvatar(
-                                backgroundColor: Colors.white,
-                                radius: 45,
-                                foregroundImage:
-                                    AssetImage(widget.user.profilePic!),
-                              ),
+                            : Container(
+                                child: Image.file(
+                                context.read<CustomUser>().profilePic!,
+                                width: 50,
+                              )),
                         const SizedBox(
                           width: 10,
                         ),
                         Expanded(
                           child: Text(
-                            widget.user.userName,
+                            widget.user.userName!,
                             style: const TextStyle(
                                 fontSize: 35, color: Colors.white),
                           ),

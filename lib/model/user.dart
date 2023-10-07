@@ -1,17 +1,27 @@
+import 'dart:io';
+
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import 'item_card_class.dart';
 
-class CustomUser {
-  String? profilePic;
-  String userName = '';
-  String email;
+class CustomUser extends ChangeNotifier {
+  File? profilePic;
+  String? userName = '';
+  String? email;
   List<Item>? favorites;
-  List<Item> addedTocart;
-  final String id;
+  List<Item>? addedTocart;
+  final String? id;
   CustomUser(
       {this.profilePic,
-      required this.userName,
-      required this.email,
-      required this.id,
-      required this.addedTocart,
+      this.userName,
+      this.email,
+      this.id,
+      this.addedTocart,
       this.favorites});
+
+  updateProfielePic(File picFile) {
+    profilePic = picFile;
+    notifyListeners();
+  }
 }

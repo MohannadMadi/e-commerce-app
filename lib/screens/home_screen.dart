@@ -88,13 +88,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   left = itemPosition.dx;
                                                   animate = e.animate;
 
-                                                  if (widget.user.addedTocart
+                                                  if (widget.user.addedTocart!
                                                       .contains(e)) {
-                                                    widget.user.addedTocart
+                                                    widget.user.addedTocart!
                                                         .remove(e);
                                                     animate = e.animate;
                                                   } else {
-                                                    widget.user.addedTocart
+                                                    widget.user.addedTocart!
                                                         .add(e);
                                                   }
                                                 });

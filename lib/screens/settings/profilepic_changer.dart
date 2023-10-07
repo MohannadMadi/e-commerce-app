@@ -1,8 +1,10 @@
 import 'dart:io';
 
 import 'package:course/model/user.dart';
+import 'package:course/services/firebase_auth_services.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 class ProfilePicChanger extends StatefulWidget {
   final CustomUser user;
@@ -20,39 +22,38 @@ class _ProfilePicChangerState extends State<ProfilePicChanger> {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
     setState(() {
       image = pickedFile;
-      widget.user.profilePic = image!.path;
+      context.read<CustomUser>().updateProfielePic(File(image!.path));
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        InkWell(
-            onTap: pickImage,
+    return Column(children: [
+      InkWell(
+        onTap: pickImage,
+        child: Container(
+          width: 40,
+          child: Center(
             child: Container(
-              width: 40,
-              child: Center(
-                child: Container(
-                  width: 100,
-                  height: 100,
-                  child: widget.user.profilePic == null
-                      ? const CircleAvatar(
-                          backgroundColor: Color.fromARGB(255, 19, 19, 19),
-                          radius: 45,
-                          child: Icon(
-                            Icons.person,
-                            size: 80,
-                            color: Colors.grey,
-                          ),
-                        )
-                      : Container(
-                          child: Image.file(File(widget.user.profilePic!)),
-                        ),
-                ),
-              ),
-            )),
-      ],
-    );
+              width: 100,
+              height: 100,
+              child: context.read<CustomUser>().profilePic == null
+                  ? const CircleAvatar(
+                      backgroundColor: Color.fromARGB(255, 19, 19, 19),
+                      radius: 45,
+                      child: Icon(
+                        Icons.person,
+                        size: 80,
+                        color: Colors.grey,
+                      ),
+                    )
+                  : Container(
+                      child:
+                          Image.file(context.read<CustomUser>().profilePic!)),
+            ),
+          ),
+        ),
+      )
+    ]);
   }
 }
