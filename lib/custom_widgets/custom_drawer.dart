@@ -69,7 +69,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                                 backgroundColor: Colors.white,
                                 radius: 45,
                                 foregroundImage: FileImage(File(context
-                                    .read<FirebaseAuthServices>()
+                                    .watch<FirebaseAuthServices>()
                                     .currentUserPhoto)),
                               ),
                         const SizedBox(

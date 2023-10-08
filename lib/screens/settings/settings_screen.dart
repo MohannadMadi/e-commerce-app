@@ -1,4 +1,5 @@
 import 'package:course/model/user.dart';
+import 'package:course/screens/home_screen.dart';
 import 'package:course/screens/settings/profilepic_changer.dart';
 import 'package:course/screens/settings/settings_section.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,12 @@ class _SettingsState extends State<Settings> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: BackButton(onPressed: () {
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+              builder: (context) => HomeScreen(
+                    user: widget.user,
+                  )));
+        }),
         title: const Text(
           "Settings",
         ),

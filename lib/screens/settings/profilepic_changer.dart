@@ -30,7 +30,6 @@ class _ProfilePicChangerState extends State<ProfilePicChanger> {
     image = pickedFile;
     User firebaseUser = await firebaseAuthServices.currentUser!;
     await firebaseUser.updatePhotoURL(image!.path);
-    context.read<CustomUser>().updateProfielePic(File(firebaseUser.photoURL!));
     setState(() {});
   }
 
@@ -42,7 +41,7 @@ class _ProfilePicChangerState extends State<ProfilePicChanger> {
         alignment: Alignment.topRight,
         children: [
           Center(
-            child: context.read<FirebaseAuthServices>().currentUser == null
+            child: context.watch<FirebaseAuthServices>().currentUser == null
                 ? const CircleAvatar(
                     backgroundColor: Color.fromARGB(255, 19, 19, 19),
                     radius: 45,
@@ -55,8 +54,9 @@ class _ProfilePicChangerState extends State<ProfilePicChanger> {
                 : CircleAvatar(
                     backgroundColor: Colors.white,
                     radius: 45,
-                    foregroundImage: FileImage(File(
-                        context.read<FirebaseAuthServices>().currentUserPhoto)),
+                    foregroundImage: FileImage(File(context
+                        .watch<FirebaseAuthServices>()
+                        .currentUserPhoto)),
                   ),
           ),
         ],
