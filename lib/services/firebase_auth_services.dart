@@ -7,6 +7,14 @@ class FirebaseAuthServices extends ChangeNotifier {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final DisplayFunctions displayFunctions = DisplayFunctions();
 
+  get currentUserPhoto {
+    return _firebaseAuth.currentUser!.photoURL!;
+  }
+
+  get currentUser {
+    return _firebaseAuth.currentUser!;
+  }
+
   Stream<User> get firebaseUser {
     return _firebaseAuth
         .authStateChanges()

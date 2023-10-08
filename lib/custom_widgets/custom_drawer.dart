@@ -1,5 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
+import 'dart:io';
+
 import 'package:course/screens/authentication/sign_in.dart';
 import 'package:course/screens/home_screen.dart';
 import 'package:course/screens/settings/settings_screen.dart';
@@ -49,7 +51,10 @@ class _CustomDrawerState extends State<CustomDrawer> {
                         const SizedBox(
                           width: 5,
                         ),
-                        context.watch<CustomUser>().profilePic == null
+                        context
+                                    .watch<FirebaseAuthServices>()
+                                    .currentUserPhoto ==
+                                null
                             ? const CircleAvatar(
                                 backgroundColor:
                                     Color.fromARGB(255, 19, 19, 19),
@@ -63,9 +68,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                             : CircleAvatar(
                                 backgroundColor: Colors.white,
                                 radius: 45,
-                                foregroundImage: FileImage(
-                                  context.read<CustomUser>().profilePic!,
-                                ),
+                                foregroundImage: FileImage(File(context
+                                    .read<FirebaseAuthServices>()
+                                    .currentUserPhoto)),
                               ),
                         const SizedBox(
                           width: 10,
